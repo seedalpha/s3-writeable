@@ -75,7 +75,7 @@ exports = module.exports = function writeable(s3, options) {
 					  Parts: parts
 				  }
         }, function(err, res) {
-          if (err) return stream.emit('error', err);
+          if (err) return done(err);
           done();
         });
       });
