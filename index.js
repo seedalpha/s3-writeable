@@ -30,13 +30,21 @@ exports = module.exports = function writeable(s3, options) {
       var parts   = [];
       var mp      = null
       
-      function start(buffer, done) {
+      var start = through(function(chunk, enc, done) {
+        if (mp) return done(null, chunk);
         s3.createMultipartUpload(params, function(err, response) {
           if (err) return done(err);
           mp = response;
-          done();
+          done(null, chunk);
         });
-      }
+      });
+      // function start(buffer, done) {
+      //   s3.createMultipartUpload(params, function(err, response) {
+      //     if (err) return done(err);
+      //     mp = response;
+      //     done();
+      //   });
+      // }
       
       function upload(part, retry, done) {
         var retry = retry || 0;
@@ -80,7 +88,8 @@ exports = module.exports = function writeable(s3, options) {
         });
       });
       
-      return throughout(rebuffer(options.size), throughout(head(start, { includeHead: true }), multipart));
+      // return throughout(rebuffer(options.size), throughout(head(start, { includeHead: true }), multipart));
+      return throughout(rebuffer(options.size), throughout(start, multipart));
     }
   }
 }

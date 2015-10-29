@@ -1,6 +1,6 @@
 {
   "name": "s3-writeable",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Write to S3 using streams (via multipart upload)",
   "main": "index.js",
   "scripts": {
