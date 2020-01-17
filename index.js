@@ -2,7 +2,7 @@
  * Module dependencies
  */
 
-var rebuffer  = require('rebuffer');
+var rebuffer  = require('@seedalpha/rebuffer');
 var through   = require('through2');
 var debug     = require('debug')('s3-streams');
 var throughout = require('throughout');
